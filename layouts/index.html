@@ -1,9 +1,13 @@
 {{ define "main" }}
 
 	{{ partial "banner" site.Data.banner }}
-	{{ partial "spotlight" site.Data.spotlight1 }}
-	{{ partial "spotlight" site.Data.spotlight2 }}
-	{{ partial "spotlight" site.Data.spotlight3 }}
+
+	<!-- Spotlight -->
+	{{ range $key, $value := site.Data.spotlight }}
+        {{ partial "spotlight" $value }}
+	{{ end }}
+	<!-- Spotlight -->
+
 	{{ partial "gallery" site.Data.gallery }}
 	{{ partial "elements" . }}
 	{{ partial "footer" . }}
