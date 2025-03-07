@@ -1,0 +1,10 @@
+####################### Spotlight #########################
+style: "style1 orient-right content-align-left image-position-center onscroll-image-fade-in content-align-justify"
+id: "first"
+title : "Мастер-класс «Печём крендели»"
+content: |
+  Приглашаю вас в гости испечь румяные крендели! Я заранее подготовлю тесто, а затем с радостью помогу вам создать из него настоящие русские крендели. Вы сможете забрать их с собой в качестве сувенира из Суздаля или насладиться горячими, только что испеченными, с ароматным травяным чаем прямо на месте.
+button:
+  label: "Подробнее"
+  link: "#first_details"
+image: "images/spotlight01.jpg"
