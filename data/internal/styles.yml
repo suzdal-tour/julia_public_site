@@ -1,2 +1,8 @@
 banner:
   style: "style1 orient-left content-align-left image-position-right fullscreen onload-image-fade-in onload-content-fade-right"
+
+socials:
+  instagram: "icon style2 brands fa-instagram"
+  vkontakte: "icon style2 brands fa-vk"
+  telegram : "icon style2 brands fa-telegram"
+  email    : "icon style2        fa-envelope"
