@@ -1,14 +1,39 @@
-<!-- Banner -->
 <section class="banner {{ .style }}">
+
     <div class="content">
-        {{ with .title }}<h1>{{ . }}</h1>{{ end }}
-        {{ with .subtitle }}<p class="major">{{ . | safeHTML }}</p>{{ end }}
-        {{ with .content }}<p>{{ . | safeHTML }}</p>{{ end }}
-        {{ with .button }}<ul class="actions stacked">
-            <li><a href="{{ .link }}" class="button primary large wide smooth-scroll-middle">{{ .label }}</a></li>
-        </ul>{{ end }}
+
+        <!-- Title -->
+        <h1>{{ .title }}</h1>
+        <!-- Title -->
+
+
+        <!-- Subtitle -->
+        {{ with .subtitle }}
+        <p class="major">{{ . }}</p>
+        {{ end }}
+        <!-- Subtitle -->
+
+
+        <!-- Description -->
+        <p>{{ .description | safeHTML }}</p>
+        <!-- Description -->
+
+
+        <!-- Button -->
+        <ul class="actions stacked">
+            <li>
+                <a href="#spotlight-0" class="button primary large wide smooth-scroll-middle">{{ i18n "begin" }}</a>
+            </li>
+        </ul>
+        <!-- Button -->
+
     </div>
-    {{ with .image }}<div class="image">
-        <img src="{{.}}" alt="Hugo Story" />
-    </div>{{end}}
+
+
+    <!-- Cover -->
+    <div class="image">
+        <img src="{{ .cover_image }}" alt="" />
+    </div>
+    <!-- Cover -->
+
 </section>
