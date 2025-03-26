@@ -1,0 +1,24 @@
+{{ $activities := hugo.Store.Get "activities" }}
+
+<!---------------------------------------------------------------- 
+|                 Initializes the activity index                 |
+|        (-1 because the subsequent increment is inlined)        | 
+----------------------------------------------------------------->
+
+{{ $index := -1 }}
+
+<!---------------------------------------------------------------- 
+|                    Gets the template styles                    | 
+----------------------------------------------------------------->
+
+{{ $style := index $.context.Site.Data.internal.styles $.template }}
+
+<!----------------------------------------------------------------  
+|                       Renders activities                       | 
+------------------------------------------------------------------>
+
+{{ range $activities }}
+    {{ if eq .status "active" }}
+        {{ partial $.template (merge . $style (dict "odd" (modBool ($index = add $index 1) 2) "index" $index)) }}
+    {{ end }}
+{{ end }}

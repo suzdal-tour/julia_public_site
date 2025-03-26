@@ -4,9 +4,7 @@
     {{ partial "banner" (merge . site.Data.internal.styles.banner) }}
     {{ end }}
 
-	{{ partial "spotlight" site.Data.spotlight1 }}
-	{{ partial "spotlight" site.Data.spotlight2 }}
-	{{ partial "spotlight" site.Data.spotlight3 }}
+	{{ partial "_hub" (dict "context" . "template" "spotlight") }}
 
 	{{ with site.Data.gallery }}
 	{{ partial "gallery" . }}
