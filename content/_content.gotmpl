@@ -1,0 +1,34 @@
+{{ $env_act_guide_id := getenv "ACT_GUIDE_ID" }}
+{{ $env_act_list_url := getenv "ACT_LIST_URL" }}
+{{ $env_act_info_url := getenv "ACT_INFO_URL" }}
+{{ $env_act_slot_url := getenv "ACT_SLOT_URL" }}
+
+{{ $activities := newScratch }}
+
+<!---------------------------------------------------------------- 
+|      Requests the list of activities from an external API      | 
+----------------------------------------------------------------->
+
+{{ $remote := resources.GetRemote (replace $env_act_list_url "{id}" $env_act_guide_id) | unmarshal }}
+
+<!---------------------------------------------------------------- 
+|      Requests info for each activity from an external API      | 
+----------------------------------------------------------------->
+
+{{ range $remote.results }}
+    {{ $activities.Set (.id | string) (merge
+        (resources.GetRemote (replace $env_act_info_url "{id}" .id) | unmarshal)
+        (resources.GetRemote (replace $env_act_slot_url "{id}" .id) | unmarshal)) }}
+{{ end }}
+
+<!----------------------------------------------------------------  
+|            Merges remote activities with local ones            | 
+----------------------------------------------------------------->
+
+{{ $activities = merge $activities.Values .Site.Data.activities }}
+
+<!----------------------------------------------------------------  
+|          Saves activities to global storage for reuse          | 
+----------------------------------------------------------------->
+
+{{ hugo.Store.Set "activities" $activities }}
