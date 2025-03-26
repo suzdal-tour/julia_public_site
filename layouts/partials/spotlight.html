@@ -1,13 +1,32 @@
-<!-- Spotlight -->
-<section class="spotlight {{ .style }}"{{ with .id }} id="{{ . }}"{{ end }}>
+<section class="spotlight style1 {{ cond .odd `orient-right` `orient-left` }} content-align-justify image-position-center onscroll-image-fade-in" id="spotlight-{{ .index }}">
+
     <div class="content">
-        {{ with .title }}<h2>{{ . }}</h2>{{ end }}
-        {{ with .content }}<p>{{ . | safeHTML }}</p>{{ end }}
-        {{ with .button }}<ul class="actions stacked">
-            <li><a href="{{ .link }}" class="button">{{ .label }}</a></li>
-        </ul>{{ end }}
+
+        <!-- Title -->
+        <h2>{{ .title }}</h2>
+        <!-- Title -->
+
+
+        <!-- Annotation -->
+        <p>{{ .annotation | safeHTML }}</p>
+        <!-- Annotation -->
+
+
+        <!-- Button -->
+        <ul class="actions stacked">
+            <li>
+                <a href="#desc-{{ .index }}" class="button smooth-scroll-middle">{{ i18n "button_spotlight_read_more" }}</a>
+            </li>
+        </ul>
+        <!-- Button -->
+
     </div>
-    {{ with .image }}<div class="image">
-        <img src="{{ . }}" alt="" />
-    </div>{{ end }}
+
+
+    <!-- Cover -->
+    <div class="image">
+        <img src="{{ if hasPrefix .cover_image `https` }} {{ (resources.GetRemote .cover_image).RelPermalink }} {{ else }} {{ .cover_image }} {{ end }}" alt="" loading="lazy" />
+    </div>
+    <!-- Cover -->
+
 </section>
