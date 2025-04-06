@@ -1,15 +1,26 @@
 {{ define "main" }}
 
+    <!-- Banner component -->
     {{ with site.Data.banner }}
     {{ partial "banner" (merge . site.Data.internal.styles.banner) }}
     {{ end }}
+    <!-- Banner component -->
 
+
+	<!-- Spotlight component -->
 	{{ partial "_hub" (dict "context" . "template" "spotlight") }}
+    <!-- Spotlight component -->
 
+
+	<!-- Gallery component -->
 	{{ with site.Data.gallery }}
 	{{ partial "gallery" . }}
 	{{ end }}
-	
+	<!-- Gallery component -->
+
+
+	<!-- Footer component -->
 	{{ partial "footer" . }}
+	<!-- Footer component -->
 
 {{ end }}
