@@ -1,6 +1,7 @@
 {{ $env_act_guide_id := getenv "ACT_GUIDE_ID" }}
 {{ $env_act_list_url := getenv "ACT_LIST_URL" }}
 {{ $env_act_info_url := getenv "ACT_INFO_URL" }}
+{{ $env_act_slot_url := getenv "ACT_SLOT_URL" }}
 
 {{ $activities := newScratch }}
 
@@ -15,7 +16,9 @@
 ----------------------------------------------------------------->
 
 {{ range $remote.results }}
-    {{ $activities.Set (.id | string) (resources.GetRemote (replace $env_act_info_url "{id}" .id) | unmarshal) }}
+    {{ $activities.Set (.id | string) (merge
+        (resources.GetRemote (replace $env_act_info_url "{id}" .id) | unmarshal)
+        (resources.GetRemote (replace $env_act_slot_url "{id}" .id) | unmarshal)) }}
 {{ end }}
 
 <!----------------------------------------------------------------  
