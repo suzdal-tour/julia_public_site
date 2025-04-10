@@ -9,3 +9,24 @@ other = "Увеличить"
 
 [read_more]
 other = "Подробнее"
+
+[ticket]
+other = "Билет"
+
+[price]
+other = "Стоимость"
+
+[title_booking]
+other = "Бронирование"
+
+[name]
+other = "Имя"
+
+[phone]
+other = "Телефон"
+
+[activity]
+other = "Активность"
+
+[booking]
+other = "Забронировать"

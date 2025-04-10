@@ -1,0 +1,96 @@
+{{ with hugo.Store.Get "activities" }}
+<section class="wrapper style1 align-center">
+    <div class="inner">
+        <h2>{{ i18n "title_booking" }}</h2>
+        <div class="index align-left">
+            <section id="booking">
+                <div class="content">
+                    <form action="https://api.staticforms.xyz/submit" method="post">
+                        <!-- Replace with accesKey sent to your email -->
+                        <input type="hidden" name="accessKey" value="2cdb5e91-ca3f-4ce7-9e93-9684801229cd">
+                        <!-- Required -->
+                        <!-- Specify @ as reply to value if you want it to be customers email -->
+                        <input type="hidden" name="replyTo" value="@"> <!-- Optional -->
+                        <!-- If you want form to redirect to a specific url after submission -->
+                        <input type="hidden" name="redirectTo" value="https://example.com/contact/success">
+                        <!-- Optional -->
+
+                        <div class="fields">
+
+                            <!-- Name -->
+                            <div class="field half">
+                                <label for="name">{{ i18n "name" }}</label>
+                                <input type="text" name="name" id="name" required />
+                            </div>
+                            <!-- Name -->
+
+
+                            <!-- Phone -->
+                            <div class="field half">
+                                <label for="phone">{{ i18n "phone" }}</label>
+                                <input type="tel" name="phone" id="phone" value="8-xxx-xxx-xx-xx" pattern="^8(?:-\d{3}){2}(?:-\d{2}){2}$" required />
+                            </div>
+                            <!-- Phone -->
+
+
+                            <!-- Activity -->
+                            <div class="field">
+                                <label for="$activity">{{ i18n "activity" }}</label>
+                                <select name="$activity" id="activity" required>
+                                {{ range . }}
+                                    {{ if eq .status "active" }}
+                                    <option data-id="{{ .id }}" value="{{ .title }}">{{ .title }}</option>
+                                    {{ end }}
+                                {{ end }}
+                                </select>
+                            </div>
+                            <!-- Activity -->
+
+
+                            <!-- Schedule -->
+                            <div class="field">
+                                <label for="$time">Время</label>
+                                <select name="$time" id="time" required>
+                                    {{ range . }}
+                                    {{ if eq .status "active" }}
+
+                                    {{ $id := .id }}
+
+                                    {{ $duration := time.Duration "minute" .defaults.duration }}
+                                    {{ $interval := time.Duration "minute" 30 }}
+{{$duration}}
+                                    {{ $type := .schedule_type }}
+
+                                    {{ range $k, $v := .schedule }}
+                                    {{ if ne $v nil}}
+                                    {{ if eq $type "weekly_range"}}
+                                    {{ $start_date := printf "%vT%v:00" $k (index $v 0).time_start | time }}
+                                    {{ $end_date   := printf "%vT%v:00" $k (index $v 0).time_end  | time }}
+                                    {{ $inter_date := $end_date.Sub $start_date }}
+                                    <option data-id="{{ $id }}" data-end-date="{{  $inter_date.Hours }} | {{ $start_date }} | {{ $end_date }}"  data-date="{{ $k }}" value=""> {{ $start_date }} - {{ $start_date.Add $duration }}</option>
+                                    {{ end }}
+                                    {{ end }}
+                                    {{ end }}
+
+                                    {{ end }}
+                                    {{ end }}
+                                </select>
+                            </div>
+                            <!-- Schedule -->
+
+
+                            <div class="field">
+                                <label for="message">Комментарии к заказу</label>
+                                <textarea name="message" id="message" rows="6" required></textarea>
+                            </div>
+                        </div>
+                        <ul class="actions">
+                            <li><input type="submit" name="submit" id="submit" value="{{ i18n `booking` }}" /></li>
+                        </ul>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+{{ end }}
