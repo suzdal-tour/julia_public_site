@@ -1,5 +1,6 @@
 <head>
 	<title>{{ .Site.Title }}</title>
+	{{ template "_internal/opengraph.html" . }}
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<meta name="description" content="">
@@ -8,7 +9,6 @@
 	{{ partial "favicon" }}
 	{{ end }}
 
-	{{ template "_internal/opengraph.html" . }}
 
 	<!-- CSS -->
 	{{ $style := slice (resources.Get "sass/main.scss") (resources.Get "sass/mobile.scss") | resources.Concat "sass/main.scss" | resources.ExecuteAsTemplate "scss/main.scss"	. | toCSS (dict "targetPath" "css/main.css" "outputStyle" "compressed" "enableSourceMap" false) }}
